@@ -6,11 +6,12 @@
         <script src="../popup.js"></script>
     </head>
     <body>
-        <div> How long do you want to work? </div>
-        <input type="text" class = "form-time"></input>
+        <form id = "timer">
+            <div> After how many minutes do you want to take a break? </div>
+            <input type="text" class = "form-time" id = "work-time" placeholder = "Type minutes..."></input>
+            <button type="submit" class = "form-button">Set Timer</button>
+            <div class = "count"></div>
+        </form>
 
-        <div> How long do you want to take a break? </div>
-        <input type="text" class = "form-time"></input>
-        <input type="submit" value="Set Timer">
     </body>
 </html>
