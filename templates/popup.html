@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-        <script src="../jquery-3.5.0.min.js"></script>
-        <script src="../popup.js"></script>
 
+        <link href="../bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
-        <button id = "test"> click me! </button>
-        <div class = "intro">
-            Break Reminder
+        <div class = "timer"> 
+            <h5> How long do you want to take a break?</h5>
+            <input type = "number" id ="custom_time" name = "minutes" placeholder="Only minutes">
+            <button id = "timer_button">Start</button>
         </div>
-        <div>
-            <div id = "custom"> <a href ="custom.html">Custom Interval</a> </div>
-            <button id = "automatic">
-                <a href ="automatic.html">Automatic Interval</a>
-            </button>
-        </div>
+    <script src="../popup.js"></script>
     </body>
+
 </html>
