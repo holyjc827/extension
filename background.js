@@ -16,12 +16,13 @@ function showNotification() {
         title: 'Time\'s up!',
         message: 'Now you need to take a break'
      });
+    clearTimeout(alarmRingTimeout);
+    alarmDate = null;
 };
 
 function setAlarm(miliseconds) {
     clearTimeout(alarmRingTimeout);
     clearInterval(updateBadgeTextInterval);
-
     var tSecs = parseInt(miliseconds / 1000);
     var tMins = parseInt(tSecs / 60);
     var secs = tSecs % 60;
@@ -48,8 +49,13 @@ function setAlarm(miliseconds) {
 
 function getTime(){
   let now = new Date();
-  return(alarmDate.getTime() - now.getTime());
+  return(alarmDate.getTime() - now.getTime())
 };
+
+function cancelAlarm(){
+    alarmDate = null;
+    clearTimeout(alarmRingTimeout);
+}
 
 function getTimeLeftString()
 {
