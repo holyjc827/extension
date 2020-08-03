@@ -9,8 +9,6 @@ var updateBadgeTextInterval;
 var alarmDate;
 var setDate;
 
-chrome.notifications.onButtonClicked.addListener(showNotification);
-
 function showNotification() {
     chrome.notifications.create({
         type: 'basic',
@@ -41,15 +39,28 @@ function setAlarm(miliseconds) {
     setDate = new Date();
     alarmRingTimeout = setTimeout(showNotification, alarmDate.getTime() - setDate.getTime());
 
-    console.log(alarmDate.getTime() - setDate.getTime());
+    
     // chrome.browserAction.setBadgeBackgroundColor({color:green});
     // updateBadgeTextInterval = setInterval(function() {
     //     chrome.browserAction.setBadgeText({text: getTimeLeftBadgeString()});
     // }, guiLagAdjustment);
-}
+};
 
-// var dbName = "Timer-up"
+function getTime(){
+  let now = new Date();
+  return(alarmDate.getTime() - now.getTime());
+};
 
-// chrome.notifications.onClicked.addListener(function() {
-//   launch();
-// });
+function getTimeLeftString()
+{
+    var until = getTime();
+    var tSecs = parseInt(until / 1000);
+    var tMins = parseInt(tSecs / 60);
+    var secs = tSecs % 60;
+    var tHrs = parseInt(tMins / 60);
+    var mins = tMins % 60;
+    if(secs < 10) secs = "0" + secs;
+    if(mins < 10) mins = "0" + mins;
+    if(tHrs < 10) tHrs = "0" + tHrs;
+    return ((tHrs > 0 ? tHrs + ":" : "") + mins + ":" + secs);
+};

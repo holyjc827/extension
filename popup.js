@@ -1,14 +1,38 @@
 'use strict';
 
+var refreshDisplayTimeout;
 var alarmName = "surprise!"
 var bgpage = chrome.extension.getBackgroundPage();
 
+function display(element){
+  document.getElementById(element).style.display = "block";
+}
+
+function remove(element){
+  document.getElementById(element).style.display = "none";
+}
+
+function startPopUp(){
+  if(!bgpage.alarmDate)
+    {
+      display('custom_time');
+    }
+  else{
+    displayTime();
+  }
+};
+
 function Timer(num){
     bgpage.setAlarm(num * 60000);
-    document.body.style.minWidth = '420px'
-    document.getElementById('custom_time').style.display = "none";
-    // refreshDisplay();
-}
+    remove('custom_time');
+    displayTime();
+};
+
+function displayTime(){
+  document.getElementById('timer').textContent = bgpage.getTimeLeftString();
+  refreshDisplayTimeout = setTimeout(displayTime, 100);
+};
+
 function checkAlarm(callback){
     chrome.alarms.getAll(function(alarms){
         var hasAlarm = alarms.some(function(a){
@@ -46,16 +70,9 @@ function doToggleAlarm() {
        }
        checkAlarm();
      });
-    // alert("Break time!")
-    // chrome.notifications.create(alarmName, {
-    //     type: 'basic',
-    //     iconUrl: '../stay_hydrated.png',
-    //     title: 'Time\'s up!',
-    //     message: 'Now you need to take a break'
-    //  });
 };
 
-
-
 document.getElementById('timer_button').addEventListener('click', doToggleAlarm);
+startPopUp();
 checkAlarm();
+
