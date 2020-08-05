@@ -1,7 +1,6 @@
 'use strict';
 
 var refreshDisplayTimeout;
-var alarmName = "surprise!"
 var bgpage = chrome.extension.getBackgroundPage();
 
 function display(element){
@@ -21,9 +20,30 @@ function startPopUp(){
   }
 };
 
-function triggerTimer() {
+function pomodoro() {
+  Timer(25);
+  displayTime();
+};
+
+function custom(){
     let time = document.getElementById('custom_time').value;
     Timer(time);
+};
+
+function triggerTimer() {
+  let e = document.getElementById("automatic");
+  let checked = e.options[e.selectedIndex].value;
+  switch (checked){
+    case "pomodoro":
+    pomodoro();
+    break;
+
+    case "custom":
+    display('custom_time');
+    display('timer_button');
+    display('question');
+    break;
+  };
 };
 
 function Timer(num){
@@ -36,6 +56,7 @@ function displayTime(){
   refreshDisplayTimeout = setTimeout(displayTime, 100);
   remove('custom_time');
   remove('timer_button');
+  remove('question');
   display('cancel_button');
 };
 
@@ -50,10 +71,12 @@ function cancelAlarm() {
   document.getElementById('timer').textContent = "";
   display('custom_time');
   display('timer_button');
+  display('question');
   remove('cancel_button');
 };
 
-document.getElementById('timer_button').addEventListener('click', triggerTimer);
+document.getElementById('timer_button').addEventListener('click', custom);
 document.getElementById('cancel_button').addEventListener('click', cancelAlarm);
 startPopUp();
+triggerTimer();
 
