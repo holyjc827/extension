@@ -20,6 +20,20 @@ function startPopUp(){
   }
 };
 
+function getChoice()
+{
+    let choice = "none";
+    for(var i = 0; i < document.choices.radio.length; i++)
+    {
+        if(document.choices.radio[i].checked == true)
+        {
+            choice = document.choices.radio[i].value;
+            return choice;
+        }    
+    }
+    return choice;
+};
+
 function pomodoro() {
   Timer(25);
   displayTime();
@@ -31,17 +45,24 @@ function custom(){
 };
 
 function triggerTimer() {
-  let e = document.getElementById("automatic");
-  let checked = e.options[e.selectedIndex].value;
+  let checked = getChoice();
   switch (checked){
     case "pomodoro":
     pomodoro();
+    remove('start_button');
     break;
 
     case "custom":
     display('custom_time');
     display('timer_button');
     display('question');
+    remove('start_button');
+    break;
+
+    case "none":
+    remove('custom_time');
+    remove('timer_button');
+    remove('question');
     break;
   };
 };
@@ -69,12 +90,11 @@ function cancelAlarm() {
   bgpage.cancelAlarm();
   clearTimeout(refreshDisplayTimeout);
   document.getElementById('timer').textContent = "";
-  display('custom_time');
-  display('timer_button');
-  display('question');
   remove('cancel_button');
+  display('start_button');
 };
 
+document.getElementById('start_button').addEventListener('click', triggerTimer);
 document.getElementById('timer_button').addEventListener('click', custom);
 document.getElementById('cancel_button').addEventListener('click', cancelAlarm);
 startPopUp();

@@ -7,14 +7,15 @@
     <body>
         <div class = "timer"> 
             <div class = "timer_count" id = "timer"></div>
-            <select id = "automatic">
-                <option class = "pomodoro" value = "pomodoro">Pomodoro</option>
-                <option class = "custom" value ="custom">custom</option>
-            </select>
+            <form id = "automatic" name ="choices">
+                <input type ="radio" name  = "radio" class = "radio" value = "pomodoro">Pomodoro</input>
+                <input type ="radio" name  = "radio" class = "radio" value ="custom">custom</input>
+            </form>
             <h5 id = "question" style = "display:none"> How long do you want to take a break?</h5>
             <input style = "display:none" type = "number" id ="custom_time" name = "minutes" placeholder="Only minutes">
             <button style = "display:none" id = "timer_button">Start</button>
             <button id = "cancel_button" style = "display:none">Cancel</button>
+            <button id = "start_button">Start</button>
         </div>
     <script src="../popup.js"></script>
     </body>
