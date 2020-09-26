@@ -5,23 +5,24 @@ var bgpage = chrome.extension.getBackgroundPage();
 
 function display(element){
   document.getElementById(element).style.display = "block";
-}
+};
 
 function remove(element){
   document.getElementById(element).style.display = "none";
 };
 
-function startPopUp(){
+function continueToShowTime(){
   if(!bgpage.alarmDate){
     display('custom_time');
   }
   else{
     displayTime();
+    remove('choices');
+    remove('start_button');
   }
 };
 
-function getChoice()
-{
+function getChoice(){
     let choice = "none";
     for(var i = 0; i < document.choices.radio.length; i++)
     {
@@ -34,25 +35,54 @@ function getChoice()
     return choice;
 };
 
-function pomodoro() {
-  Timer(25);
+function tenmin(){
+  remove('choices');
+  Timer(10);
+  displayTime();
+};
+
+function halfhour(){
+  remove('choices');
+  Timer(30);
+  displayTime();
+};
+
+function onehour(){
+  remove('choices');
+  Timer(60);
   displayTime();
 };
 
 function custom(){
-    let time = document.getElementById('custom_time').value;
-    Timer(time);
+  let time = document.getElementById('custom_time').value;
+  Timer(time);
 };
 
-function triggerTimer() {
+function triggerTimer(){
   let checked = getChoice();
   switch (checked){
-    case "pomodoro":
-    pomodoro();
+    case "10min":
+    tenmin();
     remove('start_button');
+    display('timer_button');
+    break;
+
+    case "30min":
+    halfhour();
+    remove('start_button');
+    display('timer_button');
+    remove('choices');
+    break;
+
+    case "1hr":
+    onehour();
+    remove('start_button');
+    display('timer_button');
+    remove('choices');
     break;
 
     case "custom":
+    remove('choices');
     display('custom_time');
     display('timer_button');
     display('question');
@@ -68,7 +98,7 @@ function triggerTimer() {
 };
 
 function Timer(num){
-  bgpage.setAlarm(num * 60000);
+  bgpage.setAlarm(num*60000);
   displayTime();
 };
 
@@ -81,22 +111,18 @@ function displayTime(){
   display('cancel_button');
 };
 
-function createAlarm() {
-  chrome.alarms.create(alarmName, {
-  delayInMinutes: 0.1, periodInMinutes: 0.1});
-};
-
 function cancelAlarm() {
   bgpage.cancelAlarm();
   clearTimeout(refreshDisplayTimeout);
   document.getElementById('timer').textContent = "";
   remove('cancel_button');
   display('start_button');
+  display('choices');
 };
 
 document.getElementById('start_button').addEventListener('click', triggerTimer);
 document.getElementById('timer_button').addEventListener('click', custom);
 document.getElementById('cancel_button').addEventListener('click', cancelAlarm);
-startPopUp();
+continueToShowTime();
 triggerTimer();
 

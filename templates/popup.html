@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-<!--         <link href="../bootstrap.min.css" rel="stylesheet" media="screen"> -->
-    <link href="../templates/main.css" rel="stylesheet" media="screen">
+        <link href="../templates/main.css" rel="stylesheet" media="screen">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Bungee&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     </head>
     <body>
+        <div class = "title nanum">
+            Chrome Extension Timer
+        </div>
         <div class = "timer"> 
             <div class = "timer_count" id = "timer"></div>
-            <form id = "automatic" name ="choices">
-                <input type ="radio" name  = "radio" class = "radio" value = "pomodoro">Pomodoro</input>
-                <input type ="radio" name  = "radio" class = "radio" value ="custom">custom</input>
+            <form id = "choices" name ="choices">
+                <input type = "radio" name  = "radio" value = "10min"><p class = "radio roboto">10 mins</p></input>
+                <input type = "radio" name  = "radio" value = "30min"><p class = "radio roboto">30 mins</p></input>
+                <input type = "radio" name  = "radio" value = "1hr"><p class = "radio roboto">1 hour</p></input>
+                <input type = "radio" name  = "radio" value = "custom"><p class = "radio roboto">Custom</p></input>
             </form>
-            <h5 id = "question" style = "display:none"> How long do you want to take a break?</h5>
-            <input style = "display:none" type = "number" id ="custom_time" name = "minutes" placeholder="Only minutes">
-            <button style = "display:none" id = "timer_button">Start</button>
-            <button id = "cancel_button" style = "display:none">Cancel</button>
-            <button id = "start_button">Start</button>
+            <h5 id = "question" class = "nanum" style = "display:none"> How many minutes?</h5>
+            <input style = "display:none" type = "number" id ="custom_time" name = "minutes">
+            <button style = "display:none" id = "timer_button" class = "button">Start</button>
+            <button id = "cancel_button" class = "button" style = "display:none">Cancel</button>
+            <button id = "start_button" class = "button">Set</button>
         </div>
     <script src="../popup.js"></script>
     </body>
-
 </html>

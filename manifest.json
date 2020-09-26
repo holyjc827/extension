@@ -1,7 +1,7 @@
 {
     "manifest_version" : 2,
     "name": "Break Reminder",
-    "description": "a",
+    "description": "It is a simple timer extension which allows you to remind you to take a break. You can set up a custome time as well.",
     "version": "1.0",
     "permissions": [
      "activeTab","storage","notifications","alarms"
@@ -16,7 +16,7 @@
     },
     "content_scripts": [
         {
-            "js": [ "jquery-3.5.0.min.js", "popup.js" ],
+            "js": [ "popup.js" ],
             "matches": [ "http://*/*", "https://*/*"]
         }
     ]

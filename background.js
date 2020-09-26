@@ -12,23 +12,25 @@ var setDate;
 function showNotification() {
     chrome.notifications.create({
         type: 'basic',
-        iconUrl: '../stay_hydrated.png',
+        iconUrl: '../Alarm.png',
         title: 'Time\'s up!',
-        message: 'Now you need to take a break'
+        message: 'Now you need to take a break!'
      });
     clearTimeout(alarmRingTimeout);
-    alarmDate = null;
+    alarmDate = "";
+    setDate = "";
 };
 
-function setAlarm(miliseconds) {
+function setAlarm(num) {
+    console.log(num);
     clearTimeout(alarmRingTimeout);
     clearInterval(updateBadgeTextInterval);
-    var tSecs = parseInt(miliseconds / 1000);
+    var tSecs = parseInt(num / 1000);
     var tMins = parseInt(tSecs / 60);
     var secs = tSecs % 60;
     var tHrs = parseInt(tMins / 60);
     var mins = tMins % 60;
-    var millis = miliseconds % 1000;
+    var millis = num % 1000;
 
     alarmDate = new Date();
     // alarmDate.setTime(alarmDate.getTime() + millis);
@@ -39,7 +41,6 @@ function setAlarm(miliseconds) {
 
     setDate = new Date();
     alarmRingTimeout = setTimeout(showNotification, alarmDate.getTime() - setDate.getTime());
-
     
     // chrome.browserAction.setBadgeBackgroundColor({color:green});
     // updateBadgeTextInterval = setInterval(function() {
@@ -53,9 +54,10 @@ function getTime(){
 };
 
 function cancelAlarm(){
-    alarmDate = null;
+    alarmDate = "";
+    setDate = "";
     clearTimeout(alarmRingTimeout);
-}
+};
 
 function getTimeLeftString()
 {
